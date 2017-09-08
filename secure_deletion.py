@@ -32,12 +32,14 @@ def main():
 
     random.seed()
 
-    if sys.argv.count(int) > 0:
+    if len(sys.argv) > 1:
         path = sys.argv[1]
-    if sys.argv.count(int) > 1:
-        erase_count = int(sys.argv[2])
-    if sys.argv.count(int) > 2:
-        is_rand = int(sys.argv[3])
+        if len(sys.argv) > 2:
+            erase_count = int(sys.argv[2])
+        if len(sys.argv) > 3:
+            is_rand = int(sys.argv[3])
+    else:
+        sys.exit('You need to specify the path to the file as argument')
 
     if is_rand:
         rand_file(path, erase_count)
@@ -46,5 +48,6 @@ def main():
 
     os.remove(path)
 
+    print('Deleted successfully')
 if __name__ == "__main__":
     main()
