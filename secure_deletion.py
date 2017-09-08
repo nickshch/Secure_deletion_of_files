@@ -9,7 +9,7 @@ def nop_file_bytes(path, rounds):
     for x in range(rounds):
         f = open(path, 'rb+')
         for pos in range(file_size):
-            f.write(b'\x00\x00\x00\x00')  # TODO check null bytes
+            f.write(b'\x00')
         f.close()
 
 
@@ -22,7 +22,6 @@ def randomize_file_bytes(path, rounds):
         for pos in range(file_size):
             random_int = random.randint(0, 255)
             random_byte = struct.pack('>B', random_int)
-            print(random_byte)
             f.write(random_byte)
         f.close()
 
@@ -56,8 +55,8 @@ def check_args():
 def main():
     path, erase_count, is_rand = check_args()
     wipe_file(path, erase_count, is_rand)
-    # os.remove(path)
-    # print('Deleted successfully')
+    os.remove(path)
+    print('Deleted successfully')
 
 
 if __name__ == "__main__":
