@@ -4,7 +4,7 @@ import random
 import struct
 
 
-def nop_file(path='examplefile.txt', rounds=1):
+def nop_file(path, rounds):
     file_size = os.stat(path).st_size
     for x in range(rounds):
         f = open(path, 'rb+')
@@ -13,7 +13,7 @@ def nop_file(path='examplefile.txt', rounds=1):
         f.close()
 
 
-def rand_file(path='examplefile.txt', rounds=1):
+def rand_file(path, rounds):
     file_size = os.stat(path).st_size
     for x in range(rounds):
         f = open(path, 'rb+')
@@ -26,13 +26,12 @@ def rand_file(path='examplefile.txt', rounds=1):
 
 
 def main():
-    path = 'examplefile.txt'
+    path = ''
     erase_count = 1
-    is_rand = True
+    is_rand = False
 
     random.seed()
 
-    print(sys.argv)
     if sys.argv.count(int) > 0:
         path = sys.argv[1]
     if sys.argv.count(int) > 1:
@@ -40,15 +39,12 @@ def main():
     if sys.argv.count(int) > 2:
         is_rand = int(sys.argv[3])
 
-    file_size = os.stat(path).st_size
-
-    print(file_size)
-    print(is_rand)
     if is_rand:
         rand_file(path, erase_count)
     else:
         nop_file(path, erase_count)
 
+    os.remove(path)
 
 if __name__ == "__main__":
     main()
